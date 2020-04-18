@@ -1,5 +1,9 @@
 import os
 import argparse
+import string
+
+# to do:
+# fix punctuation error (currently catches most punctuation marks except question marks)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-t", "--text",
@@ -31,8 +35,13 @@ def split(s):
     return words
 # END OF SPLIT METHOD
 
+punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+
 wordList = split(text) # original words into a list (retains capitals)
 wordListL = split(textNew) # lowercase words into a list (no caps)
+wordListL2 = [''.join(c for c in s if c not in string.punctuation) for s in wordListL]
+    # wordListL2 is a list of all of the lowercase words in wordListL without the punctuation
+print(wordListL2)
 
 inputWord = input("Enter the word you want to search:")
 searchWord = (" "+inputWord+" ")
@@ -42,22 +51,19 @@ searchWord = (" "+inputWord+" ")
 inputWordLower = inputWord.lower() # lowercase
 searchWordLower = searchWord.lower() # lowercase
 
-if searchWord in textNew or inputWordLower == wordListL[0] or inputWordLower == wordListL[len(wordList)-1]:
+if inputWordLower in wordListL2 or inputWordLower == wordListL2[0] or inputWordLower == wordListL2[len(wordListL2)-1]:
 # Conditions of the If Statement:
 # 1. if the word (with spaces around it) is in the lowercase text file (this should catch most cases)
 # 2. if the word (w/o spaces) is at the front of the text
 # 3. if the word (w/o spaces) is at the back of the text
-    wordNum = wordListL.index(inputWordLower)   # finds the index of the lowercase letter
+    wordNum = wordListL2.index(inputWordLower)   # finds the index of the lowercase letter
                                                 # this is used to get the original capitalization
                                                 # of the word
     ogWord = wordList[wordNum] # word with original capitalization
     text = text.replace(" "+ogWord+" ", " "+'\033[46;30m{}\033[m'.format(ogWord)+" ") # if the word has caps
     text = text.replace(searchWordLower, " "+'\033[46;30m{}\033[m'.format(inputWordLower)+" ") # if the word is lowercase
-    if inputWordLower == wordListL[0]:
-    # Catches the front of the list
-        text = text.replace(ogWord, '\033[46;30m{}\033[m'.format(ogWord)+" ")
-    if inputWordLower == wordListL[len(wordList)-1]:
-    # Catches the back of the list
+    if inputWordLower == wordListL2[0] or inputWordLower == wordListL2[len(wordListL2)-1]:
+    # Catches the front and back of the list
         text = text.replace(ogWord, '\033[46;30m{}\033[m'.format(ogWord))
 # Note: more info on '\033[46;30m{}\033[m' can be found at the helpful material link below
 
@@ -67,9 +73,7 @@ if textCopy != text: # to see if there have been any changes made
 else: # if there were no changes, then the word was not in the text
     print("The word is not in the text.")
 
-# to do:
-# fix punctuation error (ex. if the user inputs "ius" for text.txt, it will not
-# catch the "ius." at the end of the text file.)
+
 
 # HELPFUL MATERIALS:
 # highlighting text information (as well as which colors correspond with what numbers)
