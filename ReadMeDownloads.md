@@ -31,3 +31,4 @@ git clone --recursive https://github.com/cmusphinx/pocketsphinx-python/
 cd pocketsphinx-python
 python setup.py install
 ```
+Check out https://github.com/cmusphinx/pocketsphinx and https://github.com/cmusphinx/pocketsphinx-python for more information about those two downloads.
