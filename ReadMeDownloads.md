@@ -26,6 +26,8 @@ After that, you can install Pocketsphinx and Pocketsphinx-python. Pocketsphinx i
 
 ```brew install pocketsphinx```
 
-```git clone --recursive https://github.com/cmusphinx/pocketsphinx-python/
+```
+git clone --recursive https://github.com/cmusphinx/pocketsphinx-python/
 cd pocketsphinx-python
-python setup.py install```
+python setup.py install
+```
