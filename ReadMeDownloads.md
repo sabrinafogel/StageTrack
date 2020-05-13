@@ -16,12 +16,16 @@ Install:
 
 ```brew install -y python python-dev python-pip build-essential swig git libpulse-dev```
 
-```brew install pocketsphinx```
-
-
 You will need SphinxBase, which is the support library required by Pocketsphinx and Sphinxtrain. This can be installed by running:
 
 ```brew install sphinxbase```
 
 or by downloading it from http://cmusphinx.sourceforge.net. Download and unpack it to the same parent directory as PocketSphinx, so that the configure script and project files can find it.
 
+After that, you can install Pocketsphinx and Pocketsphinx-python. Pocketsphinx is the recognizer itself, and Pocketsphinx-python is the wrapper that allows us to use Pocketsphinx in Python.
+
+```brew install pocketsphinx```
+
+```git clone --recursive https://github.com/cmusphinx/pocketsphinx-python/
+cd pocketsphinx-python
+python setup.py install```
