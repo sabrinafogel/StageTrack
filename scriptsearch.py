@@ -1,6 +1,7 @@
 import os
 import argparse
 import string
+import speech_recognition as sr #will be interchanged with pocketsphinx later but want functionality
 
 # to do:
 # fix punctuation error (currently catches most punctuation marks except question marks)
@@ -41,9 +42,17 @@ wordList = split(text) # original words into a list (retains capitals)
 wordListL = split(textNew) # lowercase words into a list (no caps)
 wordListL2 = [''.join(c for c in s if c not in string.punctuation) for s in wordListL]
     # wordListL2 is a list of all of the lowercase words in wordListL without the punctuation
-print(wordListL2)
 
-inputWord = input("Enter the word you want to search:")
+#---------------------------------------------------------------------------------#
+print("Please say the word you want to search:")
+r = sr.Recognizer()
+mic = sr.Microphone()
+with mic as source:
+    audio = r.listen(source)
+
+inputWord = r.recognize_google(audio) #initially using Google Recognition API instead of pocketsphinx
+
+#inputWord = input("Enter the word you want to search:")
 searchWord = (" "+inputWord+" ")
 # added spaces on either side to make sure it's a solo word and not the end
 # or beginning of another word. bit of a problem later for words that are
